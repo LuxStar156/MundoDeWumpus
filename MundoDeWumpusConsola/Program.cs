@@ -31,8 +31,7 @@ namespace MundoDeWumpusConsola
             {
                 if ((elementosA >= 5 && elementosB >= 5) && (elementosA <= 8 && elementosB <= 8))
                 {
-                    Mapa mapa = new Mapa;
-
+            
 
                     Console.WriteLine("Presiona ENTER para comenzar");
 
