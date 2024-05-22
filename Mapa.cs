@@ -9,6 +9,8 @@ namespace MundoDeWumpus
     public class Mapa
     {
         private Entidad[,] _matriz;
+        private int _jugadorFila;
+        private int _jugadorColumna;
 
         public Mapa(int filas, int columnas)
         {
@@ -33,6 +35,39 @@ namespace MundoDeWumpus
             Console.WriteLine();
         }
 
+        private static void PoblarTablero(ref String[,] matriz, int elementosA, int elementosB,int )
+        {
+            Random rand = new Random();
+
+            int oroFila = rand.Next(0, elementosA);
+            int oroColumna = rand.Next(0, elementosB);
+            matriz[oroFila, oroColumna] = "O";
+
+            int wumpusFila = rand.Next(0, elementosA);
+            int wumpusColumna = rand.Next(0, elementosB);
+            matriz[wumpusFila, wumpusColumna] = "W";
+
+            int numPozos = rand.Next(1, 5);
+            for (int i = 0; i < numPozos; i++)
+            {
+                int pozoFila = rand.Next(0, elementosA);
+                int pozoColumna = rand.Next(0, elementosB);
+                matriz[pozoFila, pozoColumna] = "P";
+            }
+
+            JugadorGia = rand.Next(0, elementosA);
+            JugadorColumna = rand.Next(0, elementosB);
+
+            if (oroFila == jugadorFila && oroColumna == jugadorColumna)
+            {
+                jugadorFila = 0;
+                jugadorColumna = 0;
+            }
+
+
+        }
+
+
         private static void AgregarEntidad(ref String[,] matriz, Entidad entidad)
         {
             matriz[entidad.I, entidad.J] = entidad.Nombre;
@@ -44,6 +79,8 @@ namespace MundoDeWumpus
         }
 
         public Entidad[,] Matriz { get => _matriz; set => _matriz = value; }
+        public int JugadorFila { get => _jugadorFila; set => _jugadorFila = value; }
+        public int JugadorColumna { get => _jugadorColumna; set => _jugadorColumna = value; }
     }
 
 }

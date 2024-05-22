@@ -10,8 +10,7 @@ namespace MundoDeWumpusConsola
     internal class Program
     {
         static Boolean ganar = false;
-        static int jugadorFila;
-        static int jugadorColumna;
+   
 
         private static void Juego()
         {
