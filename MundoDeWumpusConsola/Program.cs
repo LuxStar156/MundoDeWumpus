@@ -9,8 +9,8 @@ namespace MundoDeWumpusConsola
 {
     internal class Program
     {
-        static Boolean ganar = false;
-   
+        static bool terminar = false;
+        static Mapa mapa; // Declarar el objeto Mapa
 
         private static void Juego()
         {
@@ -18,28 +18,25 @@ namespace MundoDeWumpusConsola
             Console.WriteLine("Ingrese el tamaño del tablero. Solo se permiten tableros de 5x5 hasta 8x8");
 
             Console.Write("Filas: ");
-            String aux = Console.ReadLine().Trim();
+            string aux = Console.ReadLine().Trim();
 
             Console.Write("Columnas: ");
-            String aux2 = Console.ReadLine().Trim();
+            string aux2 = Console.ReadLine().Trim();
 
-            int elementosA = 0;
-            int elementosB = 0;
-
-            if (int.TryParse(aux, out elementosA) && int.TryParse(aux2, out elementosB))
+            if (int.TryParse(aux, out int filas) && int.TryParse(aux2, out int columnas))
             {
-                if ((elementosA >= 5 && elementosB >= 5) && (elementosA <= 8 && elementosB <= 8))
+                if ((filas >= 5 && columnas >= 5) && (filas <= 8 && columnas <= 8))
                 {
-            
-
+                    mapa = new Mapa(filas, columnas); // Inicializar el objeto Mapa
+                    mapa.PintarPantalla();
                     Console.WriteLine("Presiona ENTER para comenzar");
 
-                    while (!ganar)
+                    while (!terminar)
                     {
-                        MoverPersonaje(ref matriz);
-                        PintarPantalla(ref matriz);
-                        Interactuar(ref matriz, jugadorFila, jugadorColumna, ref ganar);
-
+                        MoverPersonaje();
+                        mapa.PintarPantalla();
+                        // Verificar estado del juego (ganar o perder)
+                        VerificarEstadoJuego();
                     }
                 }
                 else
@@ -51,53 +48,48 @@ namespace MundoDeWumpusConsola
             {
                 Console.WriteLine("Debe ingresar una unidad numérica entera");
             }
-
         }
 
-
-        private static void MoverPersonaje(ref String[,] matriz)
+        private static void MoverPersonaje()
         {
             ConsoleKeyInfo tecla = Console.ReadKey();
 
-            matriz[jugadorFila, jugadorColumna] = " ";
+            int nuevaFila = mapa.Jugador.I;
+            int nuevaColumna = mapa.Jugador.J;
 
             switch (tecla.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (jugadorFila > 0)
-
-                        jugadorFila--;
-
+                    nuevaFila--;
                     break;
-
                 case ConsoleKey.DownArrow:
-                    if (jugadorFila < matriz.GetLength(0) - 1)
-
-                        jugadorFila++;
-
+                    nuevaFila++;
                     break;
-
                 case ConsoleKey.LeftArrow:
-                    if (jugadorColumna > 0)
-
-                        jugadorColumna--;
-
+                    nuevaColumna--;
                     break;
-
                 case ConsoleKey.RightArrow:
-                    if (jugadorColumna < matriz.GetLength(1) - 1)
-
-                        jugadorColumna++;
-
+                    nuevaColumna++;
                     break;
             }
 
-            if (matriz[jugadorFila, jugadorColumna] == null || matriz[jugadorFila, jugadorColumna] == " ")
+            mapa.MoverJugador(nuevaFila, nuevaColumna);
+        }
+
+        private static void VerificarEstadoJuego()
+        {
+            // Lógica para verificar si el jugador ha ganado o perdido
+            Entidad entidadActual = mapa.ObtenerEntidad(mapa.Jugador.I, mapa.Jugador.J);
+            if (entidadActual is Oro)
             {
-                matriz[jugadorFila, jugadorColumna] = "J";
+                terminar = true;
+                Console.WriteLine("¡Has encontrado el oro! ¡Has ganado!");
             }
-
-
+            else if (entidadActual is Wumpus || entidadActual is Grieta)
+            {
+                terminar = true;
+                Console.WriteLine("¡Has caído en una trampa o encontrado al Wumpus! ¡Has perdido!");
+            }
         }
 
         static void Main(string[] args)

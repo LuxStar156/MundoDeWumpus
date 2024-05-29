@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MundoDeWumpus
 {
-    internal class Grieta : Entidad
+    public class Grieta : Entidad
     {
         public Grieta(int i, int j) : base("Grieta", i, j)
         {

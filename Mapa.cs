@@ -9,78 +9,87 @@ namespace MundoDeWumpus
     public class Mapa
     {
         private Entidad[,] _matriz;
-        private int _jugadorFila;
-        private int _jugadorColumna;
+        private Jugador _jugador;
 
         public Mapa(int filas, int columnas)
         {
-            this.Matriz = new Entidad[filas, columnas];
+            Matriz = new Entidad[filas, columnas];
+            PoblarTablero(filas, columnas);
         }
 
-        private static void PintarPantalla(ref String[,] matriz)
+        public void PintarPantalla()
         {
             Console.Clear();
             Console.WriteLine("El mundo de Wumpus");
 
-            for (int i = 0; i < matriz.GetLength(0); i++)
+            for (int i = 0; i < Matriz.GetLength(0); i++)
             {
-                for (int j = 0; j < matriz.GetLength(1); j++)
+                for (int j = 0; j < Matriz.GetLength(1); j++)
                 {
-                    Console.Write("[{0}] ", matriz[i, j]);
+                    string celda = Matriz[i, j]?.Nombre ?? " ";
+                    Console.Write($"[{celda}] ");
                 }
                 Console.WriteLine();
             }
 
-
             Console.WriteLine();
         }
 
-        private static void PoblarTablero(ref String[,] matriz, int elementosA, int elementosB,int )
+        private void PoblarTablero(int filas, int columnas)
         {
             Random rand = new Random();
 
-            int oroFila = rand.Next(0, elementosA);
-            int oroColumna = rand.Next(0, elementosB);
-            matriz[oroFila, oroColumna] = "O";
+            // Colocar el oro
+            int oroFila = rand.Next(filas);
+            int oroColumna = rand.Next(columnas);
+            Matriz[oroFila, oroColumna] = new Oro(oroFila, oroColumna);
 
-            int wumpusFila = rand.Next(0, elementosA);
-            int wumpusColumna = rand.Next(0, elementosB);
-            matriz[wumpusFila, wumpusColumna] = "W";
+            // Colocar el Wumpus
+            int wumpusFila = rand.Next(filas);
+            int wumpusColumna = rand.Next(columnas);
+            Matriz[wumpusFila, wumpusColumna] = new Wumpus(wumpusFila, wumpusColumna);
 
-            int numPozos = rand.Next(1, 5);
-            for (int i = 0; i < numPozos; i++)
+            // Colocar las grietas
+            int numGrietas = rand.Next(1, 5);
+            for (int i = 0; i < numGrietas; i++)
             {
-                int pozoFila = rand.Next(0, elementosA);
-                int pozoColumna = rand.Next(0, elementosB);
-                matriz[pozoFila, pozoColumna] = "P";
+                int grietaFila = rand.Next(filas);
+                int grietaColumna = rand.Next(columnas);
+                Matriz[grietaFila, grietaColumna] = new Grieta(grietaFila, grietaColumna);
             }
 
-            JugadorGia = rand.Next(0, elementosA);
-            JugadorColumna = rand.Next(0, elementosB);
-
-            if (oroFila == jugadorFila && oroColumna == jugadorColumna)
+            // Colocar el jugador
+            do
             {
-                jugadorFila = 0;
-                jugadorColumna = 0;
+                int jugadorFila = rand.Next(filas);
+                int jugadorColumna = rand.Next(columnas);
+                if (Matriz[jugadorFila, jugadorColumna] == null)
+                {
+                    Jugador = new Jugador(jugadorFila, jugadorColumna, 0, 3);
+                    Matriz[jugadorFila, jugadorColumna] = Jugador;
+                    break;
+                }
+            } while (true);
+        }
+
+        public void MoverJugador(int nuevaFila, int nuevaColumna)
+        {
+            if (nuevaFila >= 0 && nuevaFila < Matriz.GetLength(0) && nuevaColumna >= 0 && nuevaColumna < Matriz.GetLength(1))
+            {
+                Matriz[Jugador.I, Jugador.J] = null; // Limpia la posición anterior del jugador
+                Jugador.I = nuevaFila;
+                Jugador.J = nuevaColumna;
+                Matriz[Jugador.I, Jugador.J] =Jugador;
             }
-
-
         }
 
-
-        private static void AgregarEntidad(ref String[,] matriz, Entidad entidad)
+        public Entidad ObtenerEntidad(int fila, int columna)
         {
-            matriz[entidad.I, entidad.J] = entidad.Nombre;
+            return Matriz[fila, columna];
         }
 
-        private static void EliminarEntidad(ref String[,] matriz, Entidad entidad)
-        {
-            matriz[entidad.I, entidad.J] = " ";
-        }
 
         public Entidad[,] Matriz { get => _matriz; set => _matriz = value; }
-        public int JugadorFila { get => _jugadorFila; set => _jugadorFila = value; }
-        public int JugadorColumna { get => _jugadorColumna; set => _jugadorColumna = value; }
+        public Jugador Jugador { get => _jugador; set => _jugador = value; }
     }
-
 }
