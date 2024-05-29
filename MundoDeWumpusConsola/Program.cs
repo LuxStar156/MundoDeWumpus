@@ -10,7 +10,7 @@ namespace MundoDeWumpusConsola
     internal class Program
     {
         static bool terminar = false;
-        static Mapa mapa; // Declarar el objeto Mapa
+        static Mapa mapa;
 
         private static void Juego()
         {
@@ -27,16 +27,14 @@ namespace MundoDeWumpusConsola
             {
                 if ((filas >= 5 && columnas >= 5) && (filas <= 8 && columnas <= 8))
                 {
-                    mapa = new Mapa(filas, columnas); // Inicializar el objeto Mapa
+                    mapa = new Mapa(filas, columnas);
                     mapa.PintarPantalla();
-                    Console.WriteLine("Presiona ENTER para comenzar");
-                    Console.ReadLine();
-
+   
                     while (!terminar)
-                    {
+                    {                  
                         mapa.PintarPantalla();
                         MoverPersonaje();
-                        
+
                     }
                 }
                 else

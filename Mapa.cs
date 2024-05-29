@@ -27,7 +27,7 @@ namespace MundoDeWumpus
             {
                 for (int j = 0; j < Matriz.GetLength(1); j++)
                 {
-                    string celda = Matriz[i, j]?.Nombre ?? " ";
+                    string celda = Matriz[i, j]?.Nombre.Substring(0,1) ?? " ";
                     Console.Write($"[{celda}] ");
                 }
                 Console.WriteLine();
@@ -40,17 +40,14 @@ namespace MundoDeWumpus
         {
             Random rand = new Random();
 
-            // Colocar el oro
             int oroFila = rand.Next(filas);
             int oroColumna = rand.Next(columnas);
             Matriz[oroFila, oroColumna] = new Oro(oroFila, oroColumna);
 
-            // Colocar el Wumpus
             int wumpusFila = rand.Next(filas);
             int wumpusColumna = rand.Next(columnas);
             Matriz[wumpusFila, wumpusColumna] = new Wumpus(wumpusFila, wumpusColumna);
 
-            // Colocar las grietas
             int numGrietas = rand.Next(1, 5);
             for (int i = 0; i < numGrietas; i++)
             {
@@ -59,7 +56,6 @@ namespace MundoDeWumpus
                 Matriz[grietaFila, grietaColumna] = new Grieta(grietaFila, grietaColumna);
             }
 
-            // Colocar el jugador
             do
             {
                 int jugadorFila = rand.Next(filas);
@@ -79,7 +75,7 @@ namespace MundoDeWumpus
 
             if (nuevaFila >= 0 && nuevaFila < Matriz.GetLength(0) && nuevaColumna >= 0 && nuevaColumna < Matriz.GetLength(1))
             {
-                Matriz[Jugador.I, Jugador.J] = null; // Limpia la posición anterior del jugador
+                Matriz[Jugador.I, Jugador.J] = null;
                 Jugador.I = nuevaFila;
                 Jugador.J = nuevaColumna;
 
