@@ -30,13 +30,13 @@ namespace MundoDeWumpusConsola
                     mapa = new Mapa(filas, columnas); // Inicializar el objeto Mapa
                     mapa.PintarPantalla();
                     Console.WriteLine("Presiona ENTER para comenzar");
+                    Console.ReadLine();
 
                     while (!terminar)
                     {
-                        MoverPersonaje();
                         mapa.PintarPantalla();
-                        // Verificar estado del juego (ganar o perder)
-                        VerificarEstadoJuego();
+                        MoverPersonaje();
+                        
                     }
                 }
                 else
@@ -73,24 +73,10 @@ namespace MundoDeWumpusConsola
                     break;
             }
 
-            mapa.MoverJugador(nuevaFila, nuevaColumna);
+            terminar= mapa.MoverJugador(nuevaFila, nuevaColumna);
         }
 
-        private static void VerificarEstadoJuego()
-        {
-            // Lógica para verificar si el jugador ha ganado o perdido
-            Entidad entidadActual = mapa.ObtenerEntidad(mapa.Jugador.I, mapa.Jugador.J);
-            if (entidadActual is Oro)
-            {
-                terminar = true;
-                Console.WriteLine("¡Has encontrado el oro! ¡Has ganado!");
-            }
-            else if (entidadActual is Wumpus || entidadActual is Grieta)
-            {
-                terminar = true;
-                Console.WriteLine("¡Has caído en una trampa o encontrado al Wumpus! ¡Has perdido!");
-            }
-        }
+      
 
         static void Main(string[] args)
         {
