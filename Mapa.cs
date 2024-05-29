@@ -117,7 +117,42 @@ namespace MundoDeWumpus
             return false;
         }
 
-        public Entidad ObtenerEntidad(int fila, int columna)
+        public void Interactuar()
+        {
+            for (int i = Jugador.I - 1; i <= Jugador.I + 1; i++)
+            {
+                for (int j = Jugador.J - 1; j <= Jugador.J + 1; j++)
+                {
+                    if (i >= 0 && j >= 0 && i < Matriz.GetLength(0) && j < Matriz.GetLength(1))
+                    {
+                        if (Matriz[i, j] is Oro)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Se puede ver un resplandor cerca.");
+                            Console.ResetColor();
+                            break;
+
+                        }else if (Matriz[i, j] is Wumpus)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Se siente mal olor.");
+                            Console.ResetColor();
+                            break;
+
+                        }else if (Matriz[i, j] is Grieta)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Se siente la brisa.");
+                            Console.ResetColor();
+                            break;
+                        }
+
+                    }
+                }
+            }
+        }
+
+            public Entidad ObtenerEntidad(int fila, int columna)
         {
             return Matriz[fila, columna];
         }

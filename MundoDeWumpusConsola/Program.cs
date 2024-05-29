@@ -33,8 +33,9 @@ namespace MundoDeWumpusConsola
                     while (!terminar)
                     {                  
                         mapa.PintarPantalla();
+                        mapa.Interactuar();
                         MoverPersonaje();
-
+                 
                     }
                 }
                 else
