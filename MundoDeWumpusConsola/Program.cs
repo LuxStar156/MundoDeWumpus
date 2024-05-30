@@ -9,8 +9,11 @@ namespace MundoDeWumpusConsola
 {
     internal class Program
     {
-        static bool terminar = false;
+        static bool terminar;
         static Mapa mapa;
+        static int vidas;
+        static int puntos;
+        static int VolverJugar;
 
         private static void Juego()
         {
@@ -28,14 +31,38 @@ namespace MundoDeWumpusConsola
                 if ((filas >= 5 && columnas >= 5) && (filas <= 8 && columnas <= 8))
                 {
                     mapa = new Mapa(filas, columnas);
-                    mapa.PintarPantalla();
-   
-                    while (!terminar)
-                    {                  
+                    bool Juego = true;
+
+                    while (Juego)
+                    {
+                        terminar = false;
+                        mapa.PoblarTablero(filas, columnas);
                         mapa.PintarPantalla();
-                        mapa.Interactuar();
-                        MoverPersonaje();
-                 
+
+                        while (!terminar)
+                        {
+                            mapa.PintarPantalla();
+                            mapa.Interactuar();
+                            MoverPersonaje();
+
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine("Si quiere volver a jugar presione ' 1 '. De lo contrario, Presione cualquier otra  tecla");
+
+                        VolverJugar = int.Parse(Console.ReadLine());
+
+                        if (VolverJugar == 1 && mapa.Jugador.Vidas >= 1)
+                        {
+                            Juego = true;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Que lastima, se le acabaron las vidas :(");
+                            Juego = false;
+                        }
+
                     }
                 }
                 else
@@ -47,6 +74,8 @@ namespace MundoDeWumpusConsola
             {
                 Console.WriteLine("Debe ingresar una unidad numérica entera");
             }
+
+
         }
 
         private static void MoverPersonaje()
@@ -72,14 +101,17 @@ namespace MundoDeWumpusConsola
                     break;
             }
 
-            terminar= mapa.MoverJugador(nuevaFila, nuevaColumna);
+            terminar = mapa.MoverJugador(nuevaFila, nuevaColumna);
         }
 
       
 
         static void Main(string[] args)
         {
+          
+
             Juego();
+
 
             Console.WriteLine();
             Console.WriteLine("Presione cualquier tecla para finalizar...");

@@ -9,19 +9,22 @@ namespace MundoDeWumpus
 {
     public class Mapa
     {
-        private Entidad[,] _matriz;
+        private Entidad[,] _matriz; //casilla a partir de una arraylist de entidades
         private Jugador _jugador;
 
         public Mapa(int filas, int columnas)
         {
             Matriz = new Entidad[filas, columnas];
-            PoblarTablero(filas, columnas);
+            Jugador = new Jugador(0, 0, 0, 3);
         }
 
         public void PintarPantalla()
         {
             Console.Clear();
             Console.WriteLine("El mundo de Wumpus");
+
+            Console.Write(Jugador.Puntos + " Puntos - " + Jugador.Vidas + " Vidas");
+            Console.WriteLine();
 
             for (int i = 0; i < Matriz.GetLength(0); i++)
             {
@@ -36,8 +39,18 @@ namespace MundoDeWumpus
             Console.WriteLine();
         }
 
-        private void PoblarTablero(int filas, int columnas)
+        public void PoblarTablero(int filas, int columnas)
         {
+            for (int i = 0; i < Matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < Matriz.GetLength(1); j++)
+                {
+                        Matriz[i, j] = null;
+                   
+                }
+    
+            }
+
             Random rand = new Random();
 
             int oroFila = rand.Next(filas);
@@ -61,12 +74,16 @@ namespace MundoDeWumpus
                 int jugadorFila = rand.Next(filas);
                 int jugadorColumna = rand.Next(columnas);
                 if (Matriz[jugadorFila, jugadorColumna] == null)
-                {
-                    Jugador = new Jugador(jugadorFila, jugadorColumna, 0, 3);
+                {             
                     Matriz[jugadorFila, jugadorColumna] = Jugador;
+                    Jugador.I = jugadorFila;
+                    Jugador.J = jugadorColumna;
                     break;
                 }
+
             } while (true);
+
+        
         }
 
         public bool MoverJugador(int nuevaFila, int nuevaColumna)
@@ -96,6 +113,7 @@ namespace MundoDeWumpus
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("¡Has encontrado el oro! ¡Has ganado!");
                 Console.ResetColor();
+                Jugador.Puntos++;
                 return true;
             }
       
@@ -104,6 +122,7 @@ namespace MundoDeWumpus
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("¡Te has encontrado con el Wumpus! ¡Has perdido!");
                 Console.ResetColor();
+                Jugador.Vidas--;
                 return true;
             }
             else if (Matriz[Jugador.I, Jugador.J] is Grieta)
@@ -111,6 +130,7 @@ namespace MundoDeWumpus
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("¡Has caído en una grieta! ¡Has perdido!");
                 Console.ResetColor();
+                Jugador.Vidas--;
                 return true;
             }
             
@@ -127,23 +147,17 @@ namespace MundoDeWumpus
                     {
                         if (Matriz[i, j] is Oro)
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Se puede ver un resplandor cerca.");
-                            Console.ResetColor();
+                            Oro.AdyacenteOro();
                             break;
 
                         }else if (Matriz[i, j] is Wumpus)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Se siente mal olor.");
-                            Console.ResetColor();
+                            Wumpus.AdyacenteWumpus();
                             break;
 
                         }else if (Matriz[i, j] is Grieta)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Se siente la brisa.");
-                            Console.ResetColor();
+                            Grieta.AdyacenteGrieta();
                             break;
                         }
 

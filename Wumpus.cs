@@ -12,7 +12,7 @@ namespace MundoDeWumpus
         {
         }
 
-        public static void AdyacenteGrieta()
+        public static void AdyacenteWumpus()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Se siente un mal olor cerca");
