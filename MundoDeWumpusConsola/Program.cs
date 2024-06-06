@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MundoDeWumpus;
+
 
 namespace MundoDeWumpusConsola
 {
@@ -17,7 +14,16 @@ namespace MundoDeWumpusConsola
 
         private static void Juego()
         {
-            Console.Clear();
+            Console.WriteLine(@"
+      
+(_______) |                        | |            | |        | || || |                             
+ _____  | |   ____  _   _ ____   _ | | ___      _ | | ____   | || || |_   _ ____  ____  _   _  ___ 
+|  ___) | |  |    \| | | |  _ \ / || |/ _ \    / || |/ _  )  | ||_|| | | | |    \|  _ \| | | |/___)
+| |_____| |  | | | | |_| | | | ( (_| | |_| |  ( (_| ( (/ /   | |___| | |_| | | | | | | | |_| |___ |
+|_______)_|  |_|_|_|\____|_| |_|\____|\___/    \____|\____)   \______|\____|_|_|_| ||_/ \____(___/ 
+                                                                                 |_|                                                                                                   
+            ");
+ 
             Console.WriteLine("Ingrese el tamaño del tablero. Solo se permiten tableros de 5x5 hasta 8x8");
 
             Console.Write("Filas: ");
@@ -48,7 +54,7 @@ namespace MundoDeWumpusConsola
                         }
 
                         Console.WriteLine();
-                        Console.WriteLine("Si quiere volver a jugar presione ' 1 '. De lo contrario, Presione cualquier otra  tecla");
+                        Console.WriteLine("Si quiere volver a jugar presione ' 1 '. De lo contrario, Presione cualquier otro numero");
 
                         VolverJugar = int.Parse(Console.ReadLine());
 
@@ -109,9 +115,7 @@ namespace MundoDeWumpusConsola
         static void Main(string[] args)
         {
           
-
             Juego();
-
 
             Console.WriteLine();
             Console.WriteLine("Presione cualquier tecla para finalizar...");
