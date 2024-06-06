@@ -1,6 +1,6 @@
 ﻿namespace MundoDeWumpusForm
 {
-    partial class Form1
+    partial class ElMundoDeWumpus
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -28,10 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // ElMundoDeWumpus
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(534, 511);
+            this.Name = "ElMundoDeWumpus";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

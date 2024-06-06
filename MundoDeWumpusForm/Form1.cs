@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MundoDeWumpusForm
 {
-    public partial class Form1 : Form
+    public partial class ElMundoDeWumpus : Form
     {
-        public Form1()
+        public ElMundoDeWumpus()
         {
             InitializeComponent();
         }
