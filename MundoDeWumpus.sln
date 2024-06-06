@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoDeWumpus", "MundoDeWum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoDeWumpusConsola", "MundoDeWumpusConsola\MundoDeWumpusConsola.csproj", "{2040C208-3568-47B8-A686-5AC95899EC70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoDeWumpusForm", "MundoDeWumpusForm\MundoDeWumpusForm.csproj", "{FDCFB8E4-B10A-4983-A234-5FBA52696487}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2040C208-3568-47B8-A686-5AC95899EC70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2040C208-3568-47B8-A686-5AC95899EC70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2040C208-3568-47B8-A686-5AC95899EC70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDCFB8E4-B10A-4983-A234-5FBA52696487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDCFB8E4-B10A-4983-A234-5FBA52696487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDCFB8E4-B10A-4983-A234-5FBA52696487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDCFB8E4-B10A-4983-A234-5FBA52696487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

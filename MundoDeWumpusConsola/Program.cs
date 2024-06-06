@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text.Json;
 using MundoDeWumpus;
+using System.IO;
 
 
 namespace MundoDeWumpusConsola
@@ -120,7 +122,35 @@ namespace MundoDeWumpusConsola
             terminar = mapa.MoverJugador(nuevaFila, nuevaColumna);
         }
 
-      
+        /*
+        static void MainSerial()
+        {
+            Console.WriteLine("Bienvenido a Wumpus Serial!");
+            Wumpus wumpus = new Wumpus(5, 5);
+
+            string archivo = "wumpus.json";
+            GuardarEnArchivo(wumpus, archivo);
+            Console.WriteLine($"Objeto serializado y guardado como {archivo}");
+
+            Wumpus deserializado = LeerDeArchivo(archivo);
+            Console.WriteLine("Objeto deserializado de JSON:");
+            Console.WriteLine(deserializado);
+        }
+
+        static void GuardarEnArchivo(Wumpus wumpus, string archivo)
+        {
+            string jsonString = JsonSerializer.Serialize(wumpus);
+            File.WriteAllText(archivo, jsonString);
+        }
+
+        static Wumpus LeerDeArchivo(string archivo)
+        {
+            string jsonString = File.ReadAllText(archivo);
+            return JsonSerializer.Deserialize<Wumpus>(jsonString);
+        }
+
+        */
+
         /// <summary>
         /// Funcion principal del programa
         /// </summary>
@@ -129,6 +159,7 @@ namespace MundoDeWumpusConsola
         {
           
             Juego();
+            //MainSerial();
 
             Console.WriteLine();
             Console.WriteLine("Presione cualquier tecla para finalizar...");
