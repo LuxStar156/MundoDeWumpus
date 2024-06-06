@@ -6,12 +6,19 @@ namespace MundoDeWumpusConsola
 {
     internal class Program
     {
+        /// <summary>
+        /// Se inicializan las variables que se utilizarán en el juego
+        /// </summary>
         static bool terminar;
         static Mapa mapa;
         static int vidas;
         static int puntos;
         static int VolverJugar;
 
+        /// <summary>
+        /// Funcion principal del juego, donde se inicializa el tablero y se inicia el juego
+        /// junto a todas sus interacciones y funciones de la clase mapa
+        /// </summary>
         private static void Juego()
         {
             Console.WriteLine(@"
@@ -84,6 +91,9 @@ namespace MundoDeWumpusConsola
 
         }
 
+        /// <summary>
+        /// Funcion que permite mover al personaje en el tablero utilizando las flechas del teclado
+        /// </summary>
         private static void MoverPersonaje()
         {
             ConsoleKeyInfo tecla = Console.ReadKey();
@@ -111,7 +121,10 @@ namespace MundoDeWumpusConsola
         }
 
       
-
+        /// <summary>
+        /// Funcion principal del programa
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
           

@@ -6,20 +6,14 @@ namespace MundoDeWumpus
     public class Mapa
     {
         /// <summary>
-        /// 
         /// Se inicializa la matriz de casillas con una lista de entidades 
         /// y el jugador
-        /// 
         /// </summary>
-
         private List<Entidad>[,] _matriz;
         private Jugador _jugador;
 
         /// <summary>
-        /// 
-        /// Se inicializa la matriz de casillas con una lista de entidades 
-        /// y el jugador
-        /// 
+        /// Constructor del mapa y de los valores iniciales del jugador
         /// </summary>
         public Mapa(int filas, int columnas)
         {
@@ -27,6 +21,9 @@ namespace MundoDeWumpus
             Jugador = new Jugador(0, 0, 0, 3);
         }
 
+        /// <summary>
+        /// Funcion que pinta el tablero en consola
+        /// </summary>
         public void PintarPantalla()
         {
             Console.Clear();
@@ -54,7 +51,11 @@ namespace MundoDeWumpus
 
             Console.WriteLine();
         }
-
+        /// <summary>
+        /// funcion que pobla el tablero con las entidades
+        /// </summary>
+        /// <param name="filas"></param>
+        /// <param name="columnas"></param>
         public void PoblarTablero(int filas, int columnas)
         {
             for (int i = 0; i < Matriz.GetLength(0); i++)
@@ -97,6 +98,12 @@ namespace MundoDeWumpus
             } while (true);
         }
 
+        /// <summary>
+        /// Funcion que mueve al jugador en el tablero
+        /// </summary>
+        /// <param name="nuevaFila"></param>
+        /// <param name="nuevaColumna"></param>
+        /// <returns></returns>
         public bool MoverJugador(int nuevaFila, int nuevaColumna)
         {
             bool ganar = false;
@@ -115,6 +122,10 @@ namespace MundoDeWumpus
             return ganar;
         }
 
+        /// <summary>
+        /// Funcion que verifica el estado del juego
+        /// </summary>
+        /// <returns></returns>
         public bool VerificarEstadoJuego()
         {
             if (Matriz[Jugador.I, Jugador.J].Count > 0)
@@ -134,7 +145,7 @@ namespace MundoDeWumpus
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("¡Te has encontrado con el Wumpus! ¡Has perdido!");
                     Console.ResetColor();
-                    Jugador.Vidas--;
+                    Jugador.Vidas = Jugador.Vidas - 3;
                     return true;
                 }
                 else if (entidad is Grieta)
@@ -150,6 +161,9 @@ namespace MundoDeWumpus
             return false;
         }
 
+        /// <summary>
+        /// Funcion que verifica si hay entidades adyacentes al jugador
+        /// </summary>
         public void Interactuar()
         {
             for (int i = Jugador.I - 1; i <= Jugador.I + 1; i++)
@@ -181,6 +195,9 @@ namespace MundoDeWumpus
             }
         }
 
+        /// <summary>
+        /// Getters y Setters de la matriz y el jugador
+        /// </summary>
         public List<Entidad>[,] Matriz { get => _matriz; set => _matriz = value; }
         public Jugador Jugador { get => _jugador; set => _jugador = value; }
     }
